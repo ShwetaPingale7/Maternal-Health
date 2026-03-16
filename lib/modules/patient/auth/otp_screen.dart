@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../app_state.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -26,6 +27,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = AppState.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -49,14 +51,14 @@ class _OtpScreenState extends State<OtpScreen> {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  'Verify OTP',
+                  state.translate('Verify OTP', 'ओटीपी सत्यापित करें', 'ओटीपी सत्यापित करा'),
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'We have sent a 4-digit code to your phone number.',
+                  state.translate('We have sent a 4-digit code to your phone number.', 'हमने आपके फोन नंबर पर 4 अंकों का कोड भेजा है।', 'आम्ही तुमच्या फोन नंबरवर ४-अंकी कोड पाठवला आहे.'),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 if (_errorMessage != null) ...[
@@ -137,13 +139,17 @@ class _OtpScreenState extends State<OtpScreen> {
                     } else {
                       // Fail - Update inline error message
                       setState(() {
-                        _errorMessage = 'Wrong Code! Please check again.\nगलत कोड! कृपया फिर से जाँचें।';
+                        _errorMessage = state.translate(
+                          'Wrong Code! Please check again.',
+                          'गलत कोड! कृपया फिर से जाँचें।',
+                          'चुकीचा कोड! कृपया पुन्हा तपासा.'
+                        );
                       });
                     }
                   },
-                  child: const Text(
-                    'Verify & Proceed',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  child: Text(
+                    state.translate('Verify & Proceed', 'सत्यापित करें और आगे बढ़ें', 'सत्यापित करा आणि पुढे जा'),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -151,7 +157,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      'Resend Code',
+                      state.translate('Resend Code', 'कोड दोबारा भेजें', 'कोड पुन्हा पाठवा'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,

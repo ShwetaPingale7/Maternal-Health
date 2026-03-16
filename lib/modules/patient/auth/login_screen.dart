@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../../../app_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = AppState.instance;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -34,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 60),
                 Text(
-                  'Welcome to\nMaternal Care',
+                  state.translate('Welcome to\nMaternal Care', 'मातृत्व देखभाल में\nआपका स्वागत है', 'मातृत्व काळजी मध्ये\nआपले स्वागत आहे'),
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -43,12 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Your journey to healthy motherhood begins here.',
+                  state.translate('Your journey to healthy motherhood begins here.', 'स्वस्थ मातृत्व की आपकी यात्रा यहीं से शुरू होती है।', 'निरोगी मातृत्व कडे तुमचा प्रवास इथून सुरू होतो.'),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 60),
                 Text(
-                  'Enter Phone Number',
+                  state.translate('Enter Phone Number', 'फ़ोन नंबर दर्ज करें', 'फोन नंबर टाका'),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.grey[800],
@@ -58,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                    hintText: 'e.g. 9876543210',
-                    prefixIcon: Icon(Icons.phone_android_outlined),
+                  decoration: InputDecoration(
+                    hintText: state.translate('e.g. 9876543210', 'जैसे 9876543210', 'उदा. 9876543210'),
+                    prefixIcon: const Icon(Icons.phone_android_outlined),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     if (_phoneController.text.length < 10) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Please enter a valid phone number')),
+                         SnackBar(content: Text(state.translate('Please enter a valid phone number', 'कृपया एक वैध फोन नंबर दर्ज करें', 'कृपया वैध फोन नंबर टाका'))),
                       );
                       return;
                     }
@@ -79,18 +81,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     // 2. Show OTP in a SnackBar (Simulating SMS)
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Your OTP is: $generatedOtp'),
+                        content: Text('${state.translate('Your OTP is', 'आपका ओटीपी है', 'तुमचा ओटीपी आहे')}: $generatedOtp'),
                         duration: const Duration(seconds: 10),
-                        action: SnackBarAction(label: 'OK', onPressed: () {}),
+                        action: SnackBarAction(label: state.translate('OK', 'ठीक है', 'ठीक आहे'), onPressed: () {}),
                       ),
                     );
 
                     // 3. Navigate to OTP Screen with the code
                     Navigator.pushNamed(context, '/otp', arguments: generatedOtp);
                   },
-                  child: const Text(
-                    'Get OTP',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  child: Text(
+                    state.translate('Get OTP', 'ओटीपी प्राप्त करें', 'ओटीपी मिळवा'),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Spacer(),
@@ -100,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushNamed(context, '/asha_login');
                     },
                     child: Text(
-                      'Are you an ASHA Worker? Login here',
+                      state.translate('Are you an ASHA Worker? Login here', 'क्या आप आशा कार्यकर्ता हैं? यहाँ लॉगिन करें', 'तुम्ही आशा स्वयंसेविका आहात का? येथे लॉगिन करा'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
