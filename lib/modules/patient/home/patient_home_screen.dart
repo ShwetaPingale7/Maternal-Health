@@ -124,21 +124,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         child: ChatbotWidget(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 16,
-        unselectedFontSize: 14,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home, size: 30),
-            label: state.translate('Home', 'मुख्य', 'मुख्य पान'),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.chat_bubble_outline, size: 30),
-            label: state.translate('ASHA', 'आशा', 'आशा'),
-          ),
-        ],
-        selectedItemColor: const Color(0xFFFF8B94),
-      ),
     );
   }
 

@@ -45,15 +45,7 @@ class RoleSelectionScreen extends StatelessWidget {
                   const Color(0xFFFF8B94),
                   () => Navigator.pushNamed(context, '/login'),
                 ),
-                const SizedBox(height: 24),
-                _buildRoleCard(
-                  context,
-                  state.translate('I am an ASHA Worker', 'मैं आशा कार्यकर्ता हूँ', 'मी आशा स्वयंसेविका आहे'),
-                  state.translate('Health Assistant', 'स्वास्थ्य सहायक', 'आरोग्य सहाय्यक'),
-                  Icons.support_agent,
-                  const Color(0xFFAEC6CF),
-                  () => Navigator.pushNamed(context, '/asha_login'),
-                ),
+
                 const SizedBox(height: 40),
                 TextButton.icon(
                   onPressed: () => Navigator.pop(context),
