@@ -437,10 +437,10 @@ class _ChatbotWidgetState extends State<ChatbotWidget>
               color: Colors.white24,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.circle, color: Color(0xFF90EE90), size: 8),
-                SizedBox(width: 4),
+                const Icon(Icons.circle, color: Color(0xFF90EE90), size: 8),
+                const SizedBox(width: 4),
                 Text(AppState.instance.translate('Online', 'ऑनलाइन', 'ऑनलाइन'), style: const TextStyle(color: Colors.white, fontSize: 11)),
               ],
             ),

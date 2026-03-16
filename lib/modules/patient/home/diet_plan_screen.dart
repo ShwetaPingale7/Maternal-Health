@@ -86,9 +86,9 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
-                ... (state.currentLanguage == 'hi'
+                ... (state.language == AppLanguage.hindi
                     ? plan.primaryNutritionalFocusHi
-                    : state.currentLanguage == 'mr'
+                    : state.language == AppLanguage.marathi
                         ? plan.primaryNutritionalFocusMr
                         : plan.primaryNutritionalFocus)
                     .map((focus) => Padding(
@@ -156,8 +156,8 @@ class _DietPlanScreenState extends State<DietPlanScreen> {
   }
 
   String _getMeal(MonthDietPlan plan, String key, AppState state) {
-    if (state.currentLanguage == 'hi') return plan.mealScheduleHi[key] ?? '';
-    if (state.currentLanguage == 'mr') return plan.mealScheduleMr[key] ?? '';
+    if (state.language == AppLanguage.hindi) return plan.mealScheduleHi[key] ?? '';
+    if (state.language == AppLanguage.marathi) return plan.mealScheduleMr[key] ?? '';
     return plan.mealSchedule[key] ?? '';
   }
 
