@@ -3,16 +3,25 @@ import 'diet_plan_screen.dart';
 import 'vaccine_screen.dart';
 import 'medicine_screen.dart';
 import 'patient_history_screen.dart';
+import 'chatbot_widget.dart';
+import '../../../app_state.dart';
 
-class PatientHomeScreen extends StatelessWidget {
+class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({super.key});
 
   @override
+  State<PatientHomeScreen> createState() => _PatientHomeScreenState();
+}
+
+class _PatientHomeScreenState extends State<PatientHomeScreen> {
+
+  @override
   Widget build(BuildContext context) {
+    final state = AppState.instance;
     return Scaffold(
       backgroundColor: const Color(0xFFFFF9F9),
       appBar: AppBar(
-        title: const Text('Maternal Care / मातृत्व देखभाल'),
+        title: Text(state.translate('Maternal Care', 'मातृत्व देखभाल', 'मातृत्व काळजी')),
         centerTitle: true,
         actions: [
           Padding(
@@ -37,46 +46,11 @@ class PatientHomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Hello, Mother! / नमस्ते माताजी! 👋',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF4A4A4A)),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Here is your health for today.\nआज के लिए आपका स्वास्थ्य विवरण।',
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            const SizedBox(height: 32),
-            _buildActionCard(
-              context,
-              'Diet Plans',
-              'भोजन योजना',
-              'What to eat / क्या खाएं',
-              Icons.restaurant_menu,
-              const Color(0xFFFFD3B6),
-              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DietPlanScreen())),
+            Text(
+              state.translate('Hello, Mother! 👋', 'नमस्ते माताजी! 👋', 'नमस्कार माताजी! 👋'),
+              style: const TextStyle(fontSize: 27, fontWeight: FontWeight.bold, color: Color(0xFF4A4A4A)),
             ),
             const SizedBox(height: 20),
-            _buildActionCard(
-              context,
-              'Vaccines',
-              'टीकाकरण',
-              'Your health shots / आपके टीके',
-              Icons.vaccines_outlined,
-              const Color(0xFFAEC6CF),
-              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VaccineScreen())),
-            ),
-            const SizedBox(height: 20),
-            _buildActionCard(
-              context,
-              'Medicines',
-              'दवाइयॉं',
-              'Daily pills / दैनिक दवाएं',
-              Icons.medication_outlined,
-              const Color(0xFFB4E6B4),
-              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicineScreen())),
-            ),
-            const SizedBox(height: 32),
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -90,21 +64,21 @@ class PatientHomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Row(
+              child: Row(
                 children: [
-                   Icon(Icons.info_outline, color: Color(0xFFFF8B94), size: 40),
-                   SizedBox(width: 16),
+                   const Icon(Icons.info_outline, color: Color(0xFFFF8B94), size: 40),
+                   const SizedBox(width: 16),
                    Expanded(
                      child: Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
                          Text(
-                           'Next Checkup: In 3 days',
-                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                           state.translate('Next Checkup', 'अगली जांच', 'पुढील तपासणी'),
+                           style: const TextStyle(fontSize: 16, color: Colors.grey),
                          ),
                          Text(
-                           'अगली जांच: 3 दिनों में',
-                           style: TextStyle(fontSize: 16, color: Colors.grey),
+                           state.translate('In 3 days', '3 दिनों में', '3 दिवसात'),
+                           style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
                          ),
                        ],
                      ),
@@ -112,21 +86,55 @@ class PatientHomeScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 32),
+            _buildActionCard(
+              context,
+              state.translate('Diet Plans', 'भोजन योजना', 'आहार योजना'),
+              state.translate('What to eat', 'क्या खाएं', 'काय खावे'),
+              Icons.restaurant_menu,
+              const Color(0xFFFFD3B6),
+              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const DietPlanScreen())),
+            ),
+            const SizedBox(height: 20),
+            _buildActionCard(
+              context,
+              state.translate('Vaccines', 'टीकाकरण', 'लसीकरण'),
+              state.translate('Your health shots', 'आपके टीके', 'तुमची लस'),
+              Icons.vaccines_outlined,
+              const Color(0xFFAEC6CF),
+              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VaccineScreen())),
+            ),
+            const SizedBox(height: 20),
+            _buildActionCard(
+              context,
+              state.translate('Medicines', 'दवाइयॉं', 'औषधे'),
+              state.translate('Daily pills', 'दैनिक दवाएं', 'रोजची औषधे'),
+              Icons.medication_outlined,
+              const Color(0xFFB4E6B4),
+              () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MedicineScreen())),
+            ),
+            const SizedBox(height: 32),
+
             const SizedBox(height: 20),
           ],
         ),
       ),
+      floatingActionButton: const Padding(
+        padding: EdgeInsets.only(bottom: 8.0),
+        child: ChatbotWidget(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 16,
         unselectedFontSize: 14,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 30),
-            label: 'Home / मुख्य',
+            icon: const Icon(Icons.home, size: 30),
+            label: state.translate('Home', 'मुख्य', 'मुख्य पान'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline, size: 30),
-            label: 'ASHA / आशा',
+            icon: const Icon(Icons.chat_bubble_outline, size: 30),
+            label: state.translate('ASHA', 'आशा', 'आशा'),
           ),
         ],
         selectedItemColor: const Color(0xFFFF8B94),
@@ -137,7 +145,6 @@ class PatientHomeScreen extends StatelessWidget {
   Widget _buildActionCard(
     BuildContext context, 
     String title, 
-    String titleH,
     String subtitle, 
     IconData icon, 
     Color color,
@@ -178,15 +185,11 @@ class PatientHomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
-                  ),
-                  Text(
-                    titleH,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black54),
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black87),
                   ),
                   Text(
                     subtitle,
-                    style: const TextStyle(fontSize: 14, color: Colors.black45),
+                    style: const TextStyle(fontSize: 15, color: Colors.black54),
                   ),
                 ],
               ),

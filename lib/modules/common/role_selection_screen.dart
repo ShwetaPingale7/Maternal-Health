@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../app_state.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = AppState.instance;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -30,31 +32,33 @@ class RoleSelectionScreen extends StatelessWidget {
                   color: Color(0xFFFF8B94),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Maternal Care App',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF4A4A4A)),
-                ),
-                const Text(
-                  'मातृत्व देखभाल ऐप',
-                  style: TextStyle(fontSize: 20, color: Colors.grey),
+                Text(
+                  state.translate('Maternal Care', 'मातृत्व देखभाल', 'मातृत्व काळजी'),
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF4A4A4A)),
                 ),
                 const SizedBox(height: 60),
                 _buildRoleCard(
                   context,
-                  'I am a Patient',
-                  'मैं मरीज हूँ',
-                  Icons.person,
+                  state.translate('I am a Patient', 'मैं मरीज हूँ', 'मी रुग्ण आहे'),
+                  state.translate('Pregnant Mother', 'गर्भवती माता', 'गर्भवती माता'),
+                  Icons.pregnant_woman,
                   const Color(0xFFFF8B94),
                   () => Navigator.pushNamed(context, '/login'),
                 ),
                 const SizedBox(height: 24),
                 _buildRoleCard(
                   context,
-                  'I am an ASHA Worker',
-                  'मैं आशा कार्यकर्ता हूँ',
+                  state.translate('I am an ASHA Worker', 'मैं आशा कार्यकर्ता हूँ', 'मी आशा स्वयंसेविका आहे'),
+                  state.translate('Health Assistant', 'स्वास्थ्य सहायक', 'आरोग्य सहाय्यक'),
                   Icons.support_agent,
                   const Color(0xFFAEC6CF),
                   () => Navigator.pushNamed(context, '/asha_login'),
+                ),
+                const SizedBox(height: 40),
+                TextButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.translate),
+                  label: Text(state.translate('Change Language', 'भाषा बदलें', 'भाषा बदला')),
                 ),
               ],
             ),
@@ -67,7 +71,7 @@ class RoleSelectionScreen extends StatelessWidget {
   Widget _buildRoleCard(
     BuildContext context,
     String title,
-    String titleH,
+    String subtitle,
     IconData icon,
     Color color,
     VoidCallback onTap,
@@ -103,10 +107,10 @@ class RoleSelectionScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    titleH,
+                    subtitle,
                     style: TextStyle(fontSize: 18, color: Colors.grey[600]),
                   ),
                 ],

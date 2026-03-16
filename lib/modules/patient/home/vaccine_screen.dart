@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
+import '../../../app_state.dart';
 
 class VaccineScreen extends StatelessWidget {
   const VaccineScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = AppState.instance;
     return Scaffold(
       appBar: AppBar(
-        title: const Column(
-          children: [
-            Text('Vaccines', style: TextStyle(fontSize: 18)),
-            Text('टीकाकरण', style: TextStyle(fontSize: 14)),
-          ],
-        ),
+        title: Text(state.translate('Vaccines', 'टीकाकरण', 'लसीकरण')),
+        centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          _buildVaccineItem('TT-1', 'First Dose / पहली खुराक', 'Completed / पूर्ण', true),
+          _buildVaccineItem(
+            'TT-1', 
+            state.translate('First Dose', 'पहली खुराक', 'पहिली मात्रा'), 
+            state.translate('Completed', 'पूर्ण', 'पूर्ण झाले'), 
+            true
+          ),
           const SizedBox(height: 16),
-          _buildVaccineItem('TT-2', 'Second Dose / दूसरी खुराक', 'Due in 5 days / 5 दिनों में', false),
+          _buildVaccineItem(
+            'TT-2', 
+            state.translate('Second Dose', 'दूसरी खुराक', 'दुसरी मात्रा'), 
+            state.translate('Due in 5 days', '5 दिनों में', '५ दिवसात'), 
+            false
+          ),
           const SizedBox(height: 16),
-          _buildVaccineItem('IFA Tablets', 'Iron folic acid / आयरन फोलिक एसिड', 'Daily / प्रतिदिन', false),
+          _buildVaccineItem(
+            'IFA Tablets', 
+            state.translate('Iron folic acid', 'आयरन फोलिक एसिड', 'लोह फोलिक ऍसिड'), 
+            state.translate('Daily', 'प्रतिदिन', 'दररोज'), 
+            false
+          ),
         ],
       ),
     );
